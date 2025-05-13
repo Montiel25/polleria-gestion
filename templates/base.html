@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Podrías añadir un framework CSS como Bootstrap aquí si quieres -->
+</head>
+<body>
+    <header>
+        <h1>Sistema de Gestión Pollería Montiel</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                <li><a href="{{ url_for('listar_proveedores') }}">Proveedores</a></li>
+                <li><a href="{{ url_for('listar_lotes') }}">Lotes Pollo Vivo</a></li>
+                <!-- Más enlaces se añadirán aquí -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Bloque para mensajes flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}
+        <!-- El contenido específico de cada página irá aquí -->
+        {% endblock %}
+    </main>
+    <footer>
+        <p>© {{ current_datetime.year }} | Pollería Montiel</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

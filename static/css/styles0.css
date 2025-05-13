@@ -1,0 +1,241 @@
+/*estilo pensado para móviles primero*/
+
+* {
+    box-sizing: border-box; /* Incluye padding y border en el width/height total del elemento */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    font-size: 16px; /* Tamaño base para móviles */
+}
+
+header {
+    background: #35424a;
+    color: #ffffff;
+    padding: 1rem 0.5rem; /* Menos padding horizontal para móviles */
+    text-align: center;
+    border-bottom: #e8491d 3px solid;
+}
+
+header h1 {
+    font-size: 1.5em; /* Ajustar tamaño para móviles */
+}
+
+nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+nav ul li {
+    display: block; /* Un enlace por línea para mejor toque en móviles */
+    margin-bottom: 10px; /* Espacio entre enlaces */
+}
+nav ul li:last-child {
+    margin-bottom: 0;
+}
+
+nav a {
+    display: block; /* Hacer todo el bloque del 'li' clickeable */
+    padding: 10px;
+    background-color: #4a5c66; /* Fondo para distinguir el área de toque */
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1em;
+    border-radius: 4px;
+}
+nav a:hover, nav a:active { /* :active es importante para feedback en móviles */
+    background-color: #e8491d;
+}
+
+main {
+    padding: 15px; /* Padding adecuado para móviles */
+    margin: 10px; /* Margen alrededor del contenido principal */
+    background: #ffffff;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #35424a;
+    color: #ffffff;
+    margin-top: 20px;
+}
+
+/* Formularios optimizados para móviles */
+.form-group {
+    margin-bottom: 20px; /* Más espacio vertical entre campos */
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px; /* Más espacio entre label e input */
+    font-weight: bold;
+}
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group input[type="email"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px; /* Inputs más grandes para facilitar el toque */
+    border: 1px solid #ccc; /* Borde más visible */
+    border-radius: 4px;
+    font-size: 1em; /* Asegurar que el texto del input sea legible */
+}
+.form-group textarea {
+    min-height: 100px;
+}
+.form-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+    vertical-align: middle;
+    transform: scale(1.3); /* Hacer el checkbox un poco más grande */
+}
+.form-group label[for*="checkbox"] {
+    font-weight: normal;
+    display: inline-block; /* Para que el label esté al lado del checkbox */
+    vertical-align: middle;
+}
+
+.btn {
+    display: block; /* Botones ocupan todo el ancho para fácil toque */
+    width: 100%;
+    background: #5cb85c;
+    color: #fff;
+    padding: 15px; /* Botones más altos */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.1em; /* Texto del botón más grande */
+    text-align: center;
+    margin-bottom: 10px; /* Espacio si hay múltiples botones */
+    transition: background-color 0.3s ease;
+}
+.btn:last-child {
+    margin-bottom: 0;
+}
+.btn:hover, .btn:active {
+    background: #4cae4c;
+}
+.btn-secondary {
+    background: #6c757d;
+}
+.btn-secondary:hover, .btn-secondary:active {
+    background: #5a6268;
+}
+.btn-danger {
+    background: #d9534f;
+}
+.btn-danger:hover, .btn-danger:active {
+    background: #c9302c;
+}
+
+/* Tablas para móviles: pueden ser un desafío.
+   Una opción es hacerlas "scrollables" horizontalmente. */
+.table-container {
+    overflow-x: auto; /* Permite scroll horizontal si la tabla es muy ancha */
+    -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%; /* O un min-width si es necesario, ej: min-width: 600px; */
+    border-collapse: collapse;
+    /* Si la tabla es muy ancha, el overflow-x en .table-container la manejará */
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    padding: 10px; /* Padding adecuado para móviles */
+    text-align: left;
+    font-size: 0.9em; /* Un poco más pequeño si hay muchos datos */
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas, útil con scroll */
+}
+th {
+    background-color: #e9ecef; /* Color de fondo más suave para cabeceras */
+    font-weight: bold;
+}
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+/* tr:hover ya no es tan relevante en táctil, pero no hace daño */
+
+/* Mensajes Flash */
+.flash-messages {
+    margin-bottom: 15px;
+}
+.alert {
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+.required {
+    color: red;
+    margin-left: 2px;
+}
+
+/* Media Query (Opcional - Si alguna vez necesitas estilos para pantallas más grandes) */
+/* @media (min-width: 768px) {
+    body {
+        font-size: 18px;
+    }
+    header h1 {
+        font-size: 2em;
+    }
+    nav ul li {
+        display: inline-block; // Volver a ponerlos en línea para pantallas grandes
+        margin-bottom: 0;
+        margin-right: 20px;
+    }
+    nav a {
+        display: inline-block; // Ajustar de nuevo
+        padding: 10px 15px;
+    }
+    main {
+        padding: 20px;
+        max-width: 960px; // Centrar contenido en pantallas grandes
+        margin: 20px auto;
+    }
+    .btn {
+        display: inline-block; // Botones en línea si hay espacio
+        width: auto;
+        margin-bottom: 0;
+    }
+    th, td {
+        font-size: 1em; // Tamaño de fuente normal para tablas en pantallas grandes
+    }
+} */
+

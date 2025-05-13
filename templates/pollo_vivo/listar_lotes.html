@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Listado de Lotes de Pollo Vivo</h2>
+<p><a href="{{ url_for('registrar_lote') }}" class="btn">Registrar Nuevo Lote</a></p>
+
+{% if lotes_data %}
+    <div class="table-container"> {# <--- AÑADE ESTE DIV #}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Lote</th>
+                    <th>Fecha Llegada</th>
+                    <th>Proveedor</th>
+                    <th>Marca Pollo</th>
+                    <th>Cantidad (Pzas)</th>
+                    <th>Tamaño Prom. (kg)</th>
+                    <th>Precio Compra/kg</th>
+                    <th>Costo Total Lote</th>
+                    <th>Pagado</th>
+                    <th>Fecha Pago</th>
+                    <th>Transporte Proveedor</th>
+                    <th>Observaciones</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lote, nombre_proveedor in lotes_data %}
+                <tr>
+                    <td>{{ lote.id }}</td>
+                    <td>{{ lote.fecha_llegada.strftime('%d-%m-%Y') }}</td>
+                    <td>{{ nombre_proveedor }}</td>
+                    <td>{{ lote.marca_pollo if lote.marca_pollo else '-' }}</td>
+                    <td>{{ lote.cantidad }}</td>
+                    <td>{{ "%.3f"|format(lote.tamano_promedio_kg) }}</td>
+                    <td>${{ "%.2f"|format(lote.precio_compra_kg) }}</td>
+                    <td>${{ "%.0f"|format(lote.costo_total_lote) if lote.costo_total_lote is not none else '-' }}</td>
+                    <td>{{ 'Sí' if lote.pagado else 'No' }}</td>
+                    <td>{{ lote.fecha_pago.strftime('%d-%m-%Y') if lote.fecha_pago else '-' }}</td>
+                    <td>{{ 'Sí' if lote.transporte_por_proveedor else 'No' }}</td>
+                    <td>{{ lote.observaciones if lote.observaciones else '-' }}</td>
+                    <td>
+                        {# Acciones como editar o eliminar #}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> {# <--- CIERRA EL DIV #}
+{% else %}
+    <p>No hay lotes de pollo vivo registrados.</p>
+{% endif %}
+{% endblock %}
