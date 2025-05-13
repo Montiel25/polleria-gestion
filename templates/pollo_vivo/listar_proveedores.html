@@ -2,9 +2,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Listado de Proveedores</h2>
+<h2>Proveedores</h2>
 {# Verifica que tu función en app.py se llame 'registrar_proveedor' #}
-<p><a href="{{ url_for('registrar_proveedor') }}" class="btn">Registrar Nuevo Proveedor</a></p> 
+<div class="contenedor-boton-accion"> {# Quitamos el <p>, usamos un div con clase #}
+    <a href="{{ url_for('registrar_proveedor') }}" class="btn btn-secundario">Nuevo Proveedor</a></div> 
 
 {% if proveedores %}
     <div class="table-container"> {# <--- AÑADE ESTE DIV #}

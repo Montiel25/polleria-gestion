@@ -52,7 +52,7 @@
         <label for="observaciones">Observaciones:</label>
         <textarea id="observaciones" name="observaciones">{{ data.observaciones if data else '' }}</textarea>
     </div>
-    <button type="submit" class="btn">Guardar Lote</button>
-    <a href="{{ url_for('listar_lotes') }}" class="btn btn-secondary">Cancelar</a>
+    <button type="submit" class="btn btn-secundario">Guardar</button>
+    <a href="{{ url_for('listar_lotes') }}" class="btn btn-primario">Cancelar</a>
 </form>
 {% endblock %}

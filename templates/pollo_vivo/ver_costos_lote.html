@@ -1,0 +1,68 @@
+{# templates/pollo_vivo/ver_costos_lote.html #}
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+
+<div class="lote-details-grid">
+    <div class="card">
+        <h3>Información del Lote de Pollo Vivo</h3>
+        <p><strong>Carga No:</strong> {{ lote.id }}</p>
+        <p><strong>Fecha de Llegada:</strong> {{ lote.fecha_llegada.strftime('%d-%m-%Y') }}</p>
+        <p><strong>Proveedor:</strong> {{ lote.proveedor_rel.nombre }}</p>
+        <p><strong>Marca:</strong> {{ lote.marca_pollo if lote.marca_pollo else '-' }}</p>
+        <p><strong>Cantidad(pzas):</strong> {{ lote.cantidad }}</p>
+        <p><strong>Promedio:</strong> {{ "%.3f"|format(lote.tamano_promedio_kg) }}</p>
+        <p><strong>Precio de Compra:</strong> ${{ "%.2f"|format(lote.precio_compra_kg) }}</p>
+        <p><strong>Costo T. por la Carga:</strong> ${{ "%.0f"|format(lote.costo_total_lote) if lote.costo_total_lote is not none else '-' }}</p>
+    </div>
+
+    {% if calculo_costos %}
+    <div class="card">
+        <h3>Cálculo de Costos del Pollo Procesado (Promedio por Pollo del Lote)</h3>
+        <p><strong>Fecha de Cálculo:</strong> {{ calculo_costos.fecha_calculo.strftime('%d-%m-%Y %H:%M:%S') }} UTC</p>
+        <p><strong>Precio Pollo Vivo + Transporte ($pv_g / kg):</strong> ${{ "%.2f"|format(calculo_costos.pv_g_calculado) }}</p>
+        <p><strong>Peso Promedio Post-Merma (tpv_m / kg):</strong> {{ "%.3f"|format(calculo_costos.tpv_m_calculado_kg) }} kg</p>
+        <p><strong>Costo Total Procesado por Pollo (Valor_total):</strong> ${{ "%.2f"|format(calculo_costos.valor_total_procesado_calculado_por_pollo) }}</p>
+        <p><strong>Costo/kg Pollo Entero Procesado ($/kg_PM):</strong> ${{ "%.2f"|format(calculo_costos.costo_kg_pollo_entero_procesado_calculado) }}</p>
+    </div>
+    {% else %}
+    <div class="card">
+        <p>No se encontraron datos de cálculo de costos para este lote.</p>
+    </div>
+    {% endif %}
+</div>
+
+{% if detalles_piezas %}
+<h3>Detalle de Costos por Pieza (para este lote)</h3>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>ID Pieza</th>
+                <th>Nombre Pieza</th>
+                <th>Peso Estimado (kg/unidad)</th>
+                <th>Costo Total Pieza ($)</th>
+                <th>Costo por Kg Pieza ($/kg)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detalle in detalles_piezas %}
+            <tr>
+                <td>{{ detalle.producto.id_interno }}</td>
+                <td>{{ detalle.producto.nombre }}</td>
+                <td>{{ "%.4f"|format(detalle.peso_estimado_pieza_calculado_kg) }}</td>
+                <td>${{ "%.4f"|format(detalle.costo_total_pieza_calculado) }}</td>
+                <td>${{ "%.4f"|format(detalle.costo_kg_pieza_calculado) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% elif calculo_costos %}
+<p>No se encontraron detalles de costos por pieza para este cálculo.</p>
+{% endif %}
+
+<br>
+<p><a href="{{ url_for('listar_lotes') }}" class="btn">Volver al Listado de Lotes</a></p>
+{% endblock %}

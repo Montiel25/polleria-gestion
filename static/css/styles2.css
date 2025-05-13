@@ -1,5 +1,6 @@
-/*estilo pensado para móviles primero*/
+/* static/css/styles.css - ENFOQUE MOBILE FIRST */
 
+/* Reseteo básico y configuración global */
 * {
     box-sizing: border-box; /* Incluye padding y border en el width/height total del elemento */
     margin: 0;
@@ -15,7 +16,7 @@ body {
 }
 
 header {
-    background: #35424a;
+    background: #02540c;
     color: #ffffff;
     padding: 1rem 0.5rem; /* Menos padding horizontal para móviles */
     text-align: center;
@@ -42,7 +43,7 @@ nav ul li:last-child {
 nav a {
     display: block; /* Hacer todo el bloque del 'li' clickeable */
     padding: 10px;
-    background-color: #4a5c66; /* Fondo para distinguir el área de toque */
+    background-color: #02540c; /* Fondo para distinguir el área de toque */
     color: #ffffff;
     text-decoration: none;
     text-transform: uppercase;
@@ -127,10 +128,10 @@ footer {
     background: #4cae4c;
 }
 .btn-secondary {
-    background: #6c757d;
+    background: #d4a008;
 }
 .btn-secondary:hover, .btn-secondary:active {
-    background: #5a6268;
+    background: #e7b00a;
 }
 .btn-danger {
     background: #d9534f;
@@ -238,4 +239,3 @@ tr:nth-child(even) {
         font-size: 1em; // Tamaño de fuente normal para tablas en pantallas grandes
     }
 } */
-

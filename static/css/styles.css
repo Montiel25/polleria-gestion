@@ -1,52 +1,49 @@
-/* Estilo Fusionado: Paleta Original + Exquisite UX - CON LINK ACTIVO */
+/* Estilo mobile-first - ENFOCADO EN UX EXQUISITA */
 
-/* --- Fuente (Usamos Inter de Exquisite UX, con fallback a tu stack original) --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); /* Fuente moderna y legible */
 
-/* --- Variables CSS: Paleta Original + Variables de Estructura/UX --- */
 :root {
-    /* === Paleta de Colores Original === */
-    --rojo: #b91515;
-    --rojo-hover: #a01010;
-    --rojo-focus-ring: rgba(185, 21, 21, 0.25);
-    --verde: #02540c;             /* Botón primario por defecto */
-    --verde-hover: #008136;
-    --amarillo: #E7B00A;           /* Acento para bordes de tabla, etc. */
-    --amarillo-hover: #D4A008;
+    /* Paleta de colores refinada (ejemplo, ajustar según branding) */
+    --color-primario: #c0392b; /* Un rojo más sofisticado */
+    --color-primario-hover: #a93226;
+    --color-primario-focus-ring: rgba(192, 57, 43, 0.25);
+
+    --color-secundario: #27ae60; /* Verde para acciones positivas */
+    --color-secundario-hover: #229954;
+
+    --color-acento: #f39c12; /* Amarillo/Naranja para acentos */
+    --color-acento-hover: #e67e22;
 
     --blanco: #fff;
-    --gris-fondo: #f7f7f7;         /* Fondo de página */
-    --gris-elemento: #ffffff;      /* Fondo para tarjetas, header, main */
-    --gris-borde: #e0e0e0;         /* Bordes sutiles (era --gris-borde-suave) */
-    --gris-borde-fuerte: #ccc;     /* Bordes más definidos (era --gris) */
-    --gris-hover-sutil: #ededed;   /* Para hovers muy sutiles (era --gris-hover-fila) */
-    --gris-medio-claro: #e9ecef;   /* Fondos activos/nav, cabeceras tabla */
-    --gris-texto-secundario: #555; /* Texto menos importante (era --gris-oscuro) */
-    --gris-texto-principal: #222;   /* Texto principal (era --negro-suave) */
+    --gris-fondo: #f8f9fa;         /* Fondo de página muy claro */
+    --gris-elemento: #ffffff;      /* Fondo para tarjetas, modales */
+    --gris-borde: #e0e0e0;         /* Bordes sutiles */
+    --gris-hover-sutil: #f1f3f5;   /* Para hovers muy sutiles */
+    --gris-texto-secundario: #6c757d; /* Texto menos importante */
+    --gris-texto-principal: #212529;   /* Texto principal oscuro */
 
-    /* === Variables de Estructura y UX (de Exquisite UX) === */
     /* Tipografía */
     --fuente-principal: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     --tamano-fuente-base: 16px;
-    --line-height-base: 1.7; /* Más espacio vertical */
-    --line-height-titulo: 1.3;
+    --line-height-base: 1.7; /* Más espacio vertical para lectura */
+    --line-height-titulo: 1.7;
 
-    /* Sombras */
+    /* Sombras para profundidad y jerarquía */
     --sombra-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
     --sombra-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
     --sombra-md: 0 4px 8px rgba(0, 0, 0, 0.06);
     --sombra-lg: 0 10px 20px rgba(0, 0, 0, 0.07);
 
     /* Transiciones */
-    --transicion-suave: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transicion-suave: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); /* Curva de easing más agradable */
     --transicion-rapida: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 
     /* Radios de borde */
     --radio-borde-s: 4px;
     --radio-borde-m: 8px;
-    --radio-borde-l: 12px; /* Radio más grande para contenedores principales */
+    --radio-borde-l: 12px;
 
-    /* Espaciado */
+    /* Espaciado (para consistencia) */
     --espacio-xs: 0.25rem; /* 4px */
     --espacio-s: 0.5rem;  /* 8px */
     --espacio-m: 1rem;    /* 16px */
@@ -61,7 +58,7 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: smooth; /* Desplazamiento suave para anclas */
 }
 
 body {
@@ -72,129 +69,203 @@ body {
     font-size: var(--tamano-fuente-base);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Prevenir scroll horizontal accidental */
 }
 
-/* Scrollbar personalizado con grises neutros */
-body::-webkit-scrollbar { width: 8px; }
-body::-webkit-scrollbar-track { background: var(--gris-fondo); }
-body::-webkit-scrollbar-thumb {
-    background-color: var(--gris-borde-fuerte);
-    border-radius: var(--radio-borde-l);
-    border: 2px solid var(--gris-fondo);
+/* Estilos para la barra de scroll (WebKit - Chrome, Safari, Edge moderno) */
+body::-webkit-scrollbar {
+    width: 8px;
 }
-body::-webkit-scrollbar-thumb:hover { background-color: var(--gris-texto-secundario); }
+body::-webkit-scrollbar-track {
+    background: var(--gris-fondo);
+}
+body::-webkit-scrollbar-thumb {
+    background-color: var(--gris-borde);
+    border-radius: var(--radio-borde-l);
+    border: 2px solid var(--gris-fondo); /* Espacio alrededor del thumb */
+}
+body::-webkit-scrollbar-thumb:hover {
+    background-color: var(--gris-texto-secundario);
+}
 
 
 /* --- Encabezado --- */
 header {
-    background: var(--gris-elemento); /* Fondo blanco */
-    color: var(--gris-texto-principal);
-    padding: var(--espacio-m) var(--espacio-l); /* Usar variables de espacio */
+    background: var(--gris-elemento);
+    padding: var(--espacio-m) var(--espacio-l);
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    box-shadow: var(--sombra-sm); /* Sombra refinada */
-    border-bottom: 1px solid var(--gris-borde); /* Borde sutil */
-    position: sticky; /* Header pegajoso */
+    box-shadow: var(--sombra-sm);
+    border-bottom: 1px solid var(--gris-borde);
+    position: sticky; /* Header pegajoso para fácil acceso */
     top: 0;
-    z-index: 1000;
+    z-index: 1000; /* Asegurar que esté por encima de otros elementos */
 }
 
 header h1 {
-    font-size: 1.8em; /* Tamaño ajustado */
+    font-size: 1.9em;
     font-weight: 700;
-    color: var(--rojo); /* Título en rojo */
-    margin-bottom: var(--espacio-s); /* Usar variables de espacio */
+    color: var(--color-primario);
+    margin-bottom: var(--espacio-s);
     line-height: var(--line-height-titulo);
     letter-spacing: -0.5px;
 }
 
 /* --- Navegación --- */
 nav {
-    background-color: var(--gris-elemento); /* Fondo blanco en móvil */
-    padding-bottom: var(--espacio-m);
+    background-color: var(--gris-elemento); /* Fondo consistente con header en móvil */
+    padding-bottom: var(--espacio-m); /* Espacio si los links están debajo del título */
 }
 nav ul {
     list-style: none;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: var(--espacio-s);
+    display: flex; /* Flex para mejor control del espaciado en móvil si es necesario */
+    flex-direction: row; /* Nav horizontal en móvil */;
+    gap: var(--espacio-xs); /* Espacio entre ítems de nav */
 }
 
 nav a {
     display: block;
     padding: var(--espacio-s) var(--espacio-m);
-    background-color: transparent; /* Fondo transparente por defecto */
-    color: var(--gris-texto-secundario); /* Texto gris oscuro */
+    background-color: transparent; /* Empezar transparente, resaltar en hover */
+    color: var(--gris-texto-secundario);
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 0.9em;
-    border-radius: var(--radio-borde-m); /* Radio más grande */
+    font-size: 1em;
+    border-radius: var(--radio-borde-m);
     font-weight: 600;
     transition: var(--transicion-suave);
     letter-spacing: 0.8px;
-    position: relative;
-    overflow: hidden;
+    position: relative; /* Para pseudo-elementos de animación */
+    overflow: hidden; /* Para efectos de "wipe" */
 }
 
-nav a::before { /* Efecto de subrayado rojo */
-    content: ''; position: absolute; bottom: 0; left: 50%;
-    width: 0; height: 2px;
-    background-color: var(--rojo);
-    transition: var(--transicion-suave);
+nav a::before { /* Efecto sutil de subrayado en hover/focus */
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primario);
+    transition: var(--transicion-suave-);
     transform: translateX(-50%);
 }
 
 nav a:hover, nav a:active, nav a:focus-visible {
-    color: var(--rojo); /* Texto rojo */
-    background-color: var(--gris-hover-sutil); /* Fondo gris muy claro */
+    color: var(--color-primario);
+    background-color: var(--gris-hover-sutil);
     outline: none;
 }
 nav a:hover::before, nav a:active::before, nav a:focus-visible::before {
-    width: 60%;
+    width: 60%; /* Ancho del subrayado al hacer hover */
 }
-
-/* --- ESTILO PERSISTENTE PARA ENLACE ACTIVO --- */
-nav a.active-link {
-    background-color: var(--rojo); /* Fondo rojo persistente */
-    color: var(--blanco); /* Texto blanco */
-    font-weight: 700;
+nav a.active-link { /* Estilo para el enlace activo */
+    padding: 14px var(--espacio-l);
+    color: var(--color-primario);
+    font-size: 0.8em
+    font-weight: 600;   
 }
 nav a.active-link::before {
     width: 60%;
-    background-color: var(--blanco); /* Subrayado blanco sobre fondo rojo */
 }
 
 
 /* --- Contenido Principal --- */
 main {
-    padding: var(--espacio-l); /* Usar variables de espacio */
+    padding: var(--espacio-l);
     margin: var(--espacio-l);
-    background: var(--gris-elemento); /* Fondo blanco */
-    box-shadow: var(--sombra-md); /* Sombra refinada */
-    border-radius: var(--radio-borde-l); /* Radio grande */
+    background: var(--gris-elemento);
+    box-shadow: var(--sombra-md);
+    border-radius: var(--radio-borde-l); /* Bordes más redondeados */
+}
+
+p {
+    padding-bottom: 0.5em; /* Añade 1 em de espacio en la parte inferior del párrafo */
+    line-height: 1em
+    letter-spacing: 0.8em;
+    }
+
+/* --- INICIO: SECCIÓN INTEGRADA - Detalles de Lote / Tarjetas (Card) --- */
+
+/* Grid para mostrar tarjetas de detalles de lote */
+.lote-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    /* gap: 20px; -> Usamos variable de espaciado.
+       20px es 1.25rem. Podemos usar calc() o una variable cercana.
+       var(--espacio-l) es 1.5rem (24px), var(--espacio-m) es 1rem (16px).
+       calc(var(--espacio-m) + var(--espacio-xs)) = 1rem + 0.25rem = 1.25rem (20px)
+    */
+    gap: calc(var(--espacio-m) + var(--espacio-xs));
+    /* margin-bottom: 20px; -> Ídem */
+    margin-bottom: calc(var(--espacio-m) + var(--espacio-xs));
+}
+
+/* Estilo base para tarjetas */
+.card {
+    /* background-color: #f9f9f9; -> Usamos var(--gris-elemento) para consistencia con otros elementos como modales o main. */
+    background-color: var(--gris-elemento);
+    /* border: 1px solid #eee; -> Usamos var(--gris-borde) */
+    border: 1px solid var(--gris-borde);
+    /* border-radius: 5px; -> Usamos var(--radio-borde-s) (4px) o var(--radio-borde-m) (8px). --radio-borde-s es más cercano. */
+    border-radius: var(--radio-borde-s);
+    /* padding: 15px; -> Usamos var(--espacio-m) (16px) */
+    padding: var(--espacio-m);
+    /* box-shadow: 0 2px 4px rgba(0,0,0,0.05); -> Coincide con var(--sombra-sm) */
+    box-shadow: var(--sombra-sm);
+    transition: var(--transicion-suave); /* Para posibles efectos hover */
+}
+
+/* Opcional: Efecto hover para tarjetas, similar a los botones */
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-md); /* Una sombra un poco más pronunciada */
+}
+
+/* Título dentro de la tarjeta */
+.card h3 {
+    margin-top: 0;
+    /* color: #35424a; -> Usamos var(--gris-texto-principal) o var(--color-primario) si se desea más énfasis */
+    color: var(--gris-texto-principal);
+    /* border-bottom: 1px solid #e8491d; -> Usamos var(--color-primario) para el acento del borde */
+    border-bottom: 1px solid var(--color-primario);
+    /* padding-bottom: 5px; -> Usamos var(--espacio-xs) (4px) o var(--espacio-s) (8px). --espacio-xs es más cercano. */
+    padding-bottom: var(--espacio-xs);
+    /* margin-bottom: 10px; -> Usamos var(--espacio-s) (8px) */
+    margin-bottom: var(--espacio-s);
+
+    /* Añadimos estilos de tipografía consistentes */
+    font-size: 1.4em; /* Ajustar según la jerarquía visual deseada, un poco más pequeño que el h1 del header */
+    font-weight: 600; /* Similar a otros elementos de peso medio */
+    line-height: var(--line-height-titulo);
+    letter-spacing: -0.2px; /* Opcional para un look más refinado */
 }
 
 /* --- Footer --- */
 footer {
     text-align: center;
     padding: var(--espacio-xl) var(--espacio-l);
-    background: var(--gris-fondo); /* Fondo gris claro */
-    color: var(--gris-texto-secundario); /* Texto gris oscuro */
+    background: transparent; /* Más integrado con el fondo del body */
+    color: var(--gris-texto-secundario);
     margin-top: var(--espacio-xl);
     font-size: 0.9em;
     border-top: 1px solid var(--gris-borde);
 }
 
-/* --- Formularios Exquisitos con Paleta Original --- */
+/* --- Formularios Exquisitos --- */
 .form-group {
     margin-bottom: var(--espacio-l);
-    position: relative;
+    position: relative; /* Para etiquetas flotantes o iconos */
 }
 .form-group label {
-    display: block; margin-bottom: var(--espacio-s);
-    font-weight: 600; color: var(--gris-texto-principal);
-    font-size: 0.95em; transition: var(--transicion-rapida);
+    display: block;
+    margin-bottom: var(--espacio-s);
+    font-weight: 500; /* Ligeramente menos pesado para un look más limpio */
+    color: var(--gris-texto-principal);
+    font-size: 0.95em;
+    transition: var(--transicion-rapida);
 }
 .form-group input[type="text"],
 .form-group input[type="number"],
@@ -202,247 +273,361 @@ footer {
 .form-group input[type="email"],
 .form-group textarea,
 .form-group select {
-    width: 100%; padding: 14px var(--espacio-m);
-    border: 1px solid var(--gris-borde-fuerte); /* Borde gris definido */
-    border-radius: var(--radio-borde-m); /* Radio medio */
-    font-size: 1em; font-family: var(--fuente-principal);
-    background-color: var(--blanco); color: var(--gris-texto-principal);
+    width: 100%;
+    padding: 14px var(--espacio-m); /* Padding generoso */
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio-borde-m);
+    font-size: 1em;
+    font-family: var(--fuente-principal);
+    background-color: var(--blanco);
+    color: var(--gris-texto-principal);
     transition: border-color var(--transicion-rapida), box-shadow var(--transicion-rapida);
-    appearance: none;
+    appearance: none; /* Quitar estilos por defecto del navegador */
 }
-.form-group select { /* Flecha gris oscuro */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23555' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+.form-group select { /* Estilo para el select, incluyendo flecha custom */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%236c757d' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right var(--espacio-m) center;
-    background-size: 1em; padding-right: calc(var(--espacio-m) * 2.5);
+    background-size: 1em;
+    padding-right: calc(var(--espacio-m) * 2.5); /* Espacio para la flecha */
 }
 
 .form-group input:focus-visible,
 .form-group textarea:focus-visible,
 .form-group select:focus-visible {
     outline: none;
-    border-color: var(--rojo); /* Borde rojo en foco */
-    box-shadow: 0 0 0 3px var(--rojo-focus-ring); /* Halo rojo */
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 3px var(--color-primario-focus-ring);
 }
-.form-group ::placeholder { color: var(--gris-texto-secundario); opacity: 0.7; }
+/* Placeholder sutil */
+.form-group ::placeholder {
+    color: var(--gris-texto-secundario);
+    opacity: 0.7;
+}
 
-.form-group textarea { min-height: 120px; resize: vertical; }
-
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
 .form-group input[type="checkbox"],
 .form-group input[type="radio"] {
-    width: 1.3em; height: 1.3em;
-    margin-right: var(--espacio-s); vertical-align: middle;
-    accent-color: var(--rojo); /* Color rojo para check/radio */
-    cursor: pointer; position: relative; top: -1px;
+    width: 1.3em; /* Tamaño consistente */
+    height: 1.3em;
+    margin-right: var(--espacio-s);
+    vertical-align: middle;
+    accent-color: var(--color-primario); /* Color del check/radio */
+    cursor: pointer;
+    position: relative; /* Para :focus-visible custom */
+    top: -1px; /* Alineación vertical fina */
 }
 .form-group input[type="checkbox"]:focus-visible,
 .form-group input[type="radio"]:focus-visible {
-    outline: 2px solid var(--rojo-focus-ring); outline-offset: 2px;
+    outline: 2px solid var(--color-primario-focus-ring);
+    outline-offset: 2px;
 }
-.form-group label.checkbox-label, /* Seleccionar por clase es más robusto */
+
+.form-group label.checkbox-label,
 .form-group label.radio-label {
-    font-weight: 400; display: inline-flex; align-items: center;
-    vertical-align: middle; color: var(--gris-texto-principal);
-    cursor: pointer; margin-bottom: 0;
+    font-weight: 400; /* Normal weight para etiquetas de checkbox/radio */
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    color: var(--gris-texto-principal);
+    cursor: pointer;
+    margin-bottom: 0; /* Reset margin */
 }
-.form-group input:disabled, /* Estilo deshabilitado */
+/* Input deshabilitado */
+.form-group input:disabled,
 .form-group textarea:disabled,
 .form-group select:disabled {
     background-color: var(--gris-hover-sutil);
     color: var(--gris-texto-secundario);
-    cursor: not-allowed; border-color: var(--gris-borde);
+    cursor: not-allowed;
+    border-color: var(--gris-borde);
+}
+.form-group input:disabled::placeholder {
+    color: var(--gris-texto-secundario);
+    opacity: 0.5;
 }
 
+/* --- Botones de Acción --- */
+.contenedor-boton-accion {
+    /*margin-bottom: var(--espacio-s); /* Esto es 1.5rem o 24px por defecto. Ajusta si necesitas más o menos */
+    padding: var(--espacio-s); /* Padding vertical para separar del contenido */
+}
 
-/* --- Botones con Estilo y Paleta Original --- */
+/* --- Botones con Estilo --- */
 .btn {
-    display: block; width: 100%;
-    padding: 14px var(--espacio-l); /* Padding generoso */
-    border: 1px solid transparent;
-    border-radius: var(--radio-borde-m); /* Radio medio */
-    cursor: pointer; text-decoration: none;
-    font-size: 1em; font-weight: 600;
-    text-align: center; margin-bottom: var(--espacio-m);
-    transition: var(--transicion-suave); /* Transición suave */
-    text-transform: uppercase; letter-spacing: 0.8px; /* Espaciado */
-    position: relative; overflow: hidden;
-    box-shadow: var(--sombra-sm); /* Sombra base refinada */
+    display: block;
+    width: 100%;
+    padding: 14px var(--espacio-l);
+    border: 1px solid transparent; /* Borde para consistencia y botones outline */
+    border-radius: var(--radio-borde-m);
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1em; /* Base, se puede ajustar por tipo */
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: var(--espacio-m);
+    transition: var(--transicion-suave);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    position: relative; /* Para efectos de ripple o iconos */
+    overflow: hidden; /* Para efectos de ripple */
+    box-shadow: var(--sombra-xs); /* Sombra sutil por defecto */
 }
-.btn:last-child { margin-bottom: 0; }
+.btn:last-child {
+    margin-bottom: 0;
+}
 
-/* Interacción refinada */
 .btn:hover, .btn:active, .btn:focus-visible {
     outline: none;
-    transform: translateY(-2px) scale(1.01); /* Elevación y escala sutil */
-    box-shadow: var(--sombra-md); /* Sombra más pronunciada */
+    transform: translateY(-2px) scale(1.01); /* Efecto de elevación y ligera expansión */
+    box-shadow: var(--sombra-md); /* Sombra más pronunciada al interactuar */
 }
 .btn:active {
-    transform: translateY(0px) scale(0.99); /* Efecto "presión" */
+    transform: translateY(0px) scale(0.99); /* Efecto de "presión" */
     box-shadow: var(--sombra-xs);
 }
 
-/* Botón Primario (Verde) */
-.btn-primario, .btn { /* .btn por defecto será primario */
-    background-color: var(--verde); color: var(--blanco); border-color: var(--verde);
+.btn-primario {
+    background-color: var(--color-primario);
+    color: var(--blanco);
+    border-color: var(--color-primario);
 }
-.btn-primario:hover, .btn-primario:active, .btn-primario:focus-visible,
-.btn:hover, .btn:active, .btn:focus-visible {
-    background-color: var(--verde-hover); border-color: var(--verde-hover); color: var(--blanco);
-}
-
-/* Botón Secundario (Gris Oscuro) */
-.btn-secondary {
-    background-color: var(--gris-texto-secundario); color: var(--blanco); border-color: var(--gris-texto-secundario);
-}
-.btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus-visible {
-    background-color: var(--gris-texto-principal); border-color: var(--gris-texto-principal); color: var(--blanco);
+.btn-primario:hover, .btn-primario:active, .btn-primario:focus-visible {
+    background-color: var(--color-primario-hover);
+    border-color: var(--color-primario-hover);
+    color: var(--blanco); /* Asegurar color de texto */
 }
 
-/* Botón Peligro (Rojo) */
-.btn-danger {
-    background-color: var(--rojo); color: var(--blanco); border-color: var(--rojo);
+.btn-secundario {
+    background-color: var(--color-secundario);
+    color: var(--blanco);
+    border-color: var(--color-secundario);
 }
-.btn-danger:hover, .btn-danger:active, .btn-danger:focus-visible {
-    background-color: var(--rojo-hover); border-color: var(--rojo-hover); color: var(--blanco);
-}
-
-/* Botón Outline (Rojo) */
-.btn-outline-danger {
-    background-color: transparent; color: var(--rojo); border-color: var(--rojo);
-}
-.btn-outline-danger:hover, .btn-outline-danger:active, .btn-outline-danger:focus-visible {
-    background-color: var(--rojo); color: var(--blanco);
+.btn-secundario:hover, .btn-secundario:active, .btn-secundario:focus-visible {
+    background-color: var(--color-secundario-hover);
+    border-color: var(--color-secundario-hover);
+    color: var(--blanco);
 }
 
+.btn-outline-primario {
+    background-color: transparent;
+    color: var(--color-primario);
+    border-color: var(--color-primario);
+}
+.btn-outline-primario:hover, .btn-outline-primario:active, .btn-outline-primario:focus-visible {
+    background-color: var(--color-primario);
+    color: var(--blanco);
+}
 
-/* --- Tablas Elegantes con Paleta Original --- */
+/* Para botones con iconos */
+.btn .icon {
+    margin-right: var(--espacio-s);
+    vertical-align: middle;
+    /* Estilo para SVG o Font Icon */
+}
+
+
+/* --- Tablas Elegantes --- */
 .table-container {
-    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     margin-bottom: var(--espacio-xl);
-    border: 1px solid var(--gris-borde); /* Borde sutil */
-    border-radius: var(--radio-borde-l); /* Radio grande */
-    background-color: var(--gris-elemento); /* Fondo blanco */
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio-borde-l);
+    background-color: var(--gris-elemento);
     box-shadow: var(--sombra-sm);
 }
-table { width: 100%; border-collapse: collapse; }
-
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
 th, td {
-    padding: var(--espacio-m) var(--espacio-l); /* Padding generoso */
-    text-align: left; font-size: 0.95em;
-    border-bottom: 1px solid var(--gris-borde); /* Borde sutil */
-    vertical-align: middle;
+    padding: var(--espacio-m) var(--espacio-l);
+    text-align: left;
+    font-size: 0.95em;
+    border-bottom: 1px solid var(--gris-borde);
+    vertical-align: middle; /* Mejor alineación vertical */
 }
 th {
-    background-color: var(--gris-medio-claro); /* Fondo gris claro */
-    color: var(--gris-texto-principal); /* Texto principal */
-    font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.8px; white-space: nowrap;
-    border-bottom: 3px solid var(--amarillo); /* Borde inferior amarillo grueso */
+    background-color: var(--gris-fondo); /* Fondo sutil para cabeceras */
+    color: var(--gris-texto-principal);
+    font-weight: 600; /* Cabeceras más destacadas */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    border-bottom-width: 2px; /* Borde inferior más grueso para TH */
 }
-td { white-space: nowrap; } /* Mantener para scroll móvil */
-tr:last-child td { border-bottom: none; }
-
-/* Zebra striping y hover sutil */
-tbody tr:nth-child(even) { background-color: var(--gris-fondo); } /* Fondo base gris claro */
+td {
+    white-space: nowrap; /* Mantener para scroll en móvil */
+}
+tr:last-child td {
+    border-bottom: none;
+}
+/* Hover sutil en filas (no TH) */
 tbody tr:hover {
-    background-color: var(--gris-hover-sutil); /* Hover gris muy claro */
+    background-color: var(--gris-hover-sutil);
     transition: var(--transicion-rapida);
 }
 
+tbody tr.clickable-row:hover {
+    background-color: var(--gris-hover-sutil); /* Mantiene la consistencia del hover de fondo */
+    cursor: pointer;
+    /* Indicador visual adicional: un borde lateral con el color primario */
+    box-shadow: inset 3px 0 0 var(--color-primario); /* Borde interno a la izquierda */
+    /* Alternativa: borde externo
+    border-left: 3px solid var(--color-primario);
+    padding-left: calc(var(--espacio-l) - 3px); /* Ajustar padding si usas border-left para que no se mueva el contenido */
+    */
+}
+
+/* Y para el estado de foco, que es importante para la accesibilidad: */
+tbody tr.clickable-row:focus-visible {
+    background-color: var(--gris-hover-sutil); /* Consistente con el hover */
+    cursor: pointer; /* Aunque el foco no siempre implica click, aquí sí */
+    outline: 2px solid var(--color-primario);
+    outline-offset: -2px; /* Para que el outline quede bien dentro de la celda/fila */
+    box-shadow: inset 3px 0 0 var(--color-primario); /* Mantener el indicador visual si lo usas en hover */
+}
+
+#lotesTabla tbody tr.clickable-row:focus-visible {
+    outline: 2px solid var(--color-primario); /* Usa tu variable de color primario */
+    outline-offset: -2px; /* Ajusta para que el outline quede bien */
+    background-color: var(--gris-hover-sutil); /* O el color que hayas decidido para el hover */
+    /* Asegúrate que la transición del hover también se aplique aquí si es deseable */
+    /* transition: background-color var(--transicion-rapida), box-shadow var(--transicion-rapida); */
+}
 
 /* --- Mensajes Flash Claros y Atractivos --- */
-.flash-messages { margin-bottom: var(--espacio-l); list-style: none; padding: 0; }
+.flash-messages {
+    margin-bottom: var(--espacio-l);
+    list-style: none;
+    padding: 0;
+}
 .alert {
-    display: flex; align-items: flex-start; gap: var(--espacio-m);
-    padding: var(--espacio-m) var(--espacio-l); margin-bottom: var(--espacio-m);
-    border-left-width: 5px; border-left-style: solid;
-    border-radius: var(--radio-borde-m); /* Radio medio */
-    font-size: 0.95em; font-weight: 500;
-    box-shadow: var(--sombra-sm); position: relative;
+    display: flex; /* Para alinear icono y texto */
+    align-items: flex-start; /* Alinear icono arriba si el texto tiene varias líneas */
+    gap: var(--espacio-m); /* Espacio entre icono y texto */
+    padding: var(--espacio-m) var(--espacio-l);
+    margin-bottom: var(--espacio-m);
+    border-left-width: 5px;
+    border-left-style: solid;
+    border-radius: var(--radio-borde-m);
+    font-size: 0.95em;
+    font-weight: 500;
+    box-shadow: var(--sombra-sm);
+    position: relative; /* Para botón de cierre si se añade */
 }
-.alert .icon { flex-shrink: 0; font-size: 1.3em; margin-top: 2px; }
-
-/* Colores estándar (mejor mantenerlos por semántica) */
-.alert-success { background-color: #dcfadc; color: #1e4620; border-left-color: var(--verde); }
-.alert-danger { background-color: #f8d7da; color: #721c24; border-left-color: var(--rojo); }
-.alert-warning { background-color: #fff3cd; color: #856404; border-left-color: var(--amarillo); }
-.alert-info { background-color: #d1ecf1; color: #0c5460; border-left-color: #17a2b8; } /* Azul info estándar */
-
-
-/* --- Indicador de Campo Requerido --- */
-.required-indicator { /* Renombrado para claridad */
-    color: var(--rojo); /* Asterisco rojo */
-    margin-left: var(--espacio-xs); font-weight: 700; font-size: 1.1em;
+.alert .icon { /* Espacio para un futuro icono SVG o de fuente */
+    flex-shrink: 0; /* Evitar que el icono se encoja */
+    font-size: 1.3em; /* Tamaño del icono */
+    margin-top: 2px; /* Alineación fina */
 }
-/* Mantener .required por compatibilidad si ya existe en el HTML */
-.required { color: var(--rojo); margin-left: 2px; font-weight: 600; }
+
+.alert-success {
+    background-color: #e9f7ef; color: #1d7b48; border-left-color: #28a745;
+}
+.alert-danger {
+    background-color: #fbebec; color: #b32d2e; border-left-color: #dc3545;
+}
+.alert-warning {
+    background-color: #fff8e6; color: #997404; border-left-color: #ffc107;
+}
+.alert-info {
+    background-color: #e7f5f8; color: #0c5460; border-left-color: #17a2b8;
+}
+
+/* --- Utilidad para Indicador de Campo Requerido --- */
+.required-indicator { /* Usar un span con esta clase en lugar de solo .required */
+    color: var(--color-primario);
+    margin-left: var(--espacio-xs);
+    font-weight: 700;
+    font-size: 1.1em; /* Hacer el asterisco un poco más grande */
+}
 
 
 /* --- Media Query para Escritorio (Desde 768px) --- */
 @media (min-width: 768px) {
-    body { font-size: calc(var(--tamano-fuente-base) + 1px); }
-
+    body {
+        font-size: calc(var(--tamano-fuente-base) + 1px);
+    }
     header {
-        padding: var(--espacio-l) var(--espacio-xl); /* Más padding */
-        display: flex; justify-content: space-between; align-items: center;
+        padding: var(--espacio-l) var(--espacio-xl);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         text-align: left;
     }
-    header h1 { font-size: 2.2em; margin-bottom: 0; }
+    header h1 {
+        font-size: 2.2em;
+        margin-bottom: 0;
+    }
 
-    nav { /* Nav dentro del header */
-      padding-bottom: 0; background-color: transparent;
-      flex-grow: 1; display: flex; justify-content: flex-end;
+    nav {
+      padding-bottom: 0;
+      background-color: transparent;
     }
     nav ul {
-        flex-direction: row; gap: var(--espacio-m); /* Horizontal con espacio */
-        justify-content: flex-end;
+        flex-direction: row; /* Nav horizontal */
+        justify-content: flex-end; /* Alinear a la derecha */
+        gap: var(--espacio-m); /* Espacio entre ítems de nav */
     }
-    nav a { /* Estilo desktop original */
+    nav a {
         padding: var(--espacio-s) var(--espacio-m);
         background-color: transparent;
         color: var(--gris-texto-secundario);
-        border-radius: var(--radio-borde-m);
     }
     nav a:hover, nav a:active, nav a:focus-visible {
-        background-color: var(--gris-hover-sutil); /* Fondo sutil */
-        color: var(--rojo); /* Texto rojo */
+        color: var(--color-primario);
+        background-color: transparent; /* No cambiar fondo en desktop, solo color y efecto ::before */
     }
-    nav a.active-link { /* Mantener el estilo activo */
-        background-color: var(--rojo);
-        color: var(--blanco);
+    nav a.active-link {
+        color: var(--color-primario);
     }
-    nav a.active-link:hover { /* Hover sobre el activo */
-         background-color: var(--rojo-hover);
-         color: var(--blanco);
-    }
-    nav a.active-link::before { /* Asegurar que el before se vea bien en desktop */
-        background-color: var(--blanco);
-    }
-
 
     main {
         padding: var(--espacio-xl) calc(var(--espacio-xl) * 1.5);
-        max-width: 960px; margin: var(--espacio-xl) auto;
+        max-width: 1000px; /* Ancho máximo y centrado */
+        margin: var(--espacio-xl) auto;
     }
 
-    .btn { display: inline-block; width: auto; margin-right: var(--espacio-m); }
-    .btn:last-of-type { margin-right: 0; }
+    .btn {
+        display: inline-block;
+        width: auto;
+        margin-bottom: 0;
+        margin-right: var(--espacio-m);
+        vertical-align: middle;
+    }
+    .btn:last-child {
+        margin-right: 0;
+    }
 
-    th, td { font-size: 1em; white-space: normal; padding: var(--espacio-m) var(--espacio-l); }
-    td { white-space: normal; } /* Permitir wrap */
+    th, td {
+        font-size: 1em;
+        white-space: normal; /* Permitir que el texto fluya en celdas */
+        padding: var(--espacio-m) var(--espacio-l);
+    }
 
-    /* Hover de tabla en desktop */
-    tbody tr:hover { background-color: var(--gris-hover-sutil); }
-
-    /* Layout de formularios en línea opcional */
-    .form-row { display: flex; gap: var(--espacio-l); margin-bottom: var(--espacio-l); }
-    .form-row .form-group { flex: 1; margin-bottom: 0; }
-    .form-group-inline { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
-    .form-group-inline label { margin-bottom: 0; flex-basis: 150px; flex-grow: 0; text-align: right; }
-    .form-group-inline input, .form-group-inline select, .form-group-inline textarea { flex-grow: 1; width: auto; }
-    .form-group-inline input[type="checkbox"] { margin-left: calc(150px + 10px); }
+    /* Ejemplo de formularios en línea para desktop */
+    .form-row { /* Contenedor para agrupar form-groups en una fila */
+        display: flex;
+        gap: var(--espacio-l);
+        margin-bottom: var(--espacio-l);
+    }
+    .form-row .form-group {
+        flex: 1; /* Distribuir espacio equitativamente */
+        margin-bottom: 0; /* Resetear margen inferior del form-group */
+    }
 }
 
-/* Animación sutil de entrada (opcional) */
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-.fade-in-element { animation: fadeIn 0.5s ease-out forwards; }
+/* Animación sutil de entrada para elementos (opcional) */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* Aplicar a elementos que quieras que aparezcan con fade-in */
+.fade-in-element {
+    animation: fadeIn 0.5s ease-out forwards;
+}

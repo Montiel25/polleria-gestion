@@ -15,7 +15,7 @@
         <label for="datos_pago">Datos de Pago (Cuenta/CLABE, Banco):</label>
         <textarea id="datos_pago" name="datos_pago">{{ request.form.datos_pago if request.form else '' }}</textarea>
     </div>
-    <button type="submit" class="btn">Guardar Proveedor</button>
-    <a href="{{ url_for('listar_proveedores') }}" class="btn btn-secondary">Cancelar</a>
+    <button type="submit" class="btn btn-secundario">Guardar</button>
+    <a href="{{ url_for('listar_proveedores') }}" class="btn btn-primario">Cancelar</a>
 </form>
 {% endblock %}
