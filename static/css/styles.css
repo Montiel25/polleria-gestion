@@ -455,6 +455,12 @@ footer {
     /* Estilo para SVG o Font Icon */
 }
 
+/* ... tus otros estilos ... */
+.btn-sm {
+    padding: 8px 12px; /* Más pequeño que el .btn normal */
+    font-size: 0.85em;
+    margin-bottom: 0; /* Para que no añada margen si está dentro de una celda */
+}
 
 /* --- Tablas Elegantes --- */
 .table-container {

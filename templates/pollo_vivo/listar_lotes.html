@@ -22,6 +22,7 @@
                     <th>Transporte Prov.</th>
                     <th>Notas</th>
                     <th>Kg Procesado</th>
+                    <th>Acciones</th> {# NUEVA COLUMNA PARA ACCIONES #}
                 </tr>
             </thead>
             <tbody>
@@ -46,6 +47,11 @@
                         {% else %}
                             N/A
                         {% endif %}
+                    </td>
+                    <td onclick="event.stopPropagation();"> {# Evitar que el click en el botón propague al TR #}
+                        <form method="POST" action="{{ url_for('eliminar_lote', lote_id=lote.id) }}" style="display: inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este lote? Se eliminarán también sus cálculos de costos asociados.');">
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
                 {% endfor %}

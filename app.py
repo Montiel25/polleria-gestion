@@ -3,7 +3,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from config import Config
 from models import db, Proveedor, LotePolloVivo, Producto, CalculoCostosLote, DetalleCostoPiezaLote  # Importar todos los modelos
-from datetime import datetime, date, timezone  # Importar date aquí también
+from datetime import datetime, timezone  # Importar date aquí también
 
 # Crear instancia de la aplicación Flask
 app = Flask(__name__)
@@ -64,6 +64,33 @@ def registrar_proveedor():
 
     return render_template('pollo_vivo/registrar_proveedor.html',
                            title="Registrar Proveedor")
+
+
+# --- RUTA PARA ELIMINAR UN PROVEEDOR ---
+@app.route('/proveedores/eliminar/<int:proveedor_id>', methods=['POST'])
+def eliminar_proveedor(proveedor_id):
+    proveedor_a_eliminar = Proveedor.query.get_or_404(proveedor_id)
+
+    # Validación adicional (opcional pero recomendada):
+    # Verificar si el proveedor tiene lotes asociados antes de eliminar.
+    if proveedor_a_eliminar.lotes:  # Si la lista lote_pollo_vivo no está vacía
+        flash(
+            f'No se puede eliminar el proveedor "{proveedor_a_eliminar.nombre}" porque tiene lotes de pollo vivo asociados. Primero elimina o reasigna esos lotes.',
+            'danger')
+        return redirect(url_for('listar_proveedores'))
+
+    try:
+        nombre_proveedor_eliminado = proveedor_a_eliminar.nombre  # Guardar nombre para el mensaje flash
+        db.session.delete(proveedor_a_eliminar)
+        db.session.commit()
+        flash(
+            f'Proveedor "{nombre_proveedor_eliminado}" eliminado exitosamente.',
+            'success')
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Error al eliminar el proveedor: {str(e)}', 'danger')
+
+    return redirect(url_for('listar_proveedores'))
 
 
 # --- RUTAS PARA LOTES DE POLLO VIVO ---
@@ -379,6 +406,31 @@ def calcular_y_guardar_costos_lote(lote_pollo_vivo_obj):
         # import traceback
         # print(traceback.format_exc())
         return False, f"Error inesperado durante el cálculo de costos: {str(e)}"
+
+
+# --- RUTA PARA ELIMINAR UN LOTE DE POLLO VIVO ---
+@app.route('/lotes/eliminar/<int:lote_id>', methods=['POST'])
+def eliminar_lote(lote_id):
+    lote_a_eliminar = LotePolloVivo.query.get_or_404(lote_id)
+
+    # Validación adicional (opcional):
+    # Si en el futuro un LoteProcesado depende de LotePolloVivo,
+    # deberías verificar aquí que no haya Lotes Procesados asociados.
+    # Por ahora, la cascada se encargará de CalculoCostosLote y sus Detalles.
+
+    try:
+        # El 'calculo_costos' y sus 'detalles_costos_piezas' se borrarán en cascada
+        # gracias a la configuración de `cascade="all, delete-orphan"` en las relaciones.
+        db.session.delete(lote_a_eliminar)
+        db.session.commit()
+        flash(
+            f'Lote ID: {lote_id} y sus costos asociados eliminados exitosamente.',
+            'success')
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Error al eliminar el lote: {str(e)}', 'danger')
+
+    return redirect(url_for('listar_lotes'))
 
 
 # --- CREAR TABLAS Y EJECUTAR APP ---

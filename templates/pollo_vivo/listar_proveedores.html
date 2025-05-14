@@ -29,8 +29,9 @@
                         {# SI DESCOMENTASTE ESTO O AÑADISTE ENLACES AQUÍ, ASEGÚRATE DE QUE LAS FUNCIONES         EXISTEN EN app.py #}        
                         {# E        jemplo: Si no tienes una función 'editar_proveedor', esta línea daría         BuildEr        ror si está a        ctiva #        }        
                         {# <        a href="        {{ url_for('editar_proveedor', id=proveedor.id) }}">Editar</a>         #}        
-                        {# <        a href="        {{ url_for('eliminar_proveedor', id=proveedor.id) }}" onclick=        "re        turn         confirm('¿Estás seguro?')">Eliminar</a> #}         
-                        N/A         {# Place        holder si no hay acciones aún #}        
+                        <form method="POST" action="{{ url_for('eliminar_proveedor', proveedor_id=proveedor.id) }}" style="display: inline;" onsubmit="return confirm('¿Estás realmente seguro de que deseas eliminar a este proveedor? Esta acción no se puede deshacer.');">
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
                     </td>        
                 </tr>        
                 {% endfor         %}
