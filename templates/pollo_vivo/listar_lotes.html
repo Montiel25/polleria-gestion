@@ -1,34 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Cargas</h2>
-<p><a href="{{ url_for('registrar_lote') }}" class="btn btn-secundario">Nuevo Lote</a></p>
-
+    <h2>Cargas</h2>
+    <div class="contenedor-boton-accion"><a href="{{ url_for('registrar_lote') }}" class="btn btn-secundario">Nuevo Lote</a></div>
+      
 {% if lotes_data %}
     <div class="table-container"> {# <--- AÑADE ESTE DIV #}
         <table id='lotesTabla'>
             <thead>
                 <tr>
-                    <th>ID Lote</th>
-                    <th>Fecha Llegada</th>
+                    {# !--><th># Carga</th>--> #}
+                    <th>Fecha</th>
                     <th>Proveedor</th>
-                    <th>Marca Pollo</th>
-                    <th>Cantidad (Pzas)</th>
-                    <th>Tamaño Prom. (kg)</th>
-                    <th>Precio Compra/kg</th>
-                    <th>Costo Total Lote</th>
+                    <th>Marca</th>
+                    <th>Cant.</th>
+                    <th>Promedio</th>
+                    <th>Precio</th>
+                    <th>Total</th>
                     <th>Pagado</th>
                     <th>Fecha Pago</th>
-                    <th>Transporte Proveedor</th>
-                    <th>Observaciones</th>
-                    <th>Costo/kg Procesado</th>
+                    <th>Transporte Prov.</th>
+                    <th>Notas</th>
+                    <th>Kg Procesado</th>
                 </tr>
             </thead>
             <tbody>
                 {% for lote, nombre_proveedor in lotes_data %}
                 {# Añadimos un data-attribute con la URL de destino #}
                 <tr data-href="{{ url_for('ver_costos_lote', lote_id=lote.id) }}" class="clickable-row">
-                    <td>{{ lote.id }}</td>
+                    {# !--><td>{{ lote.id }}</td>--> #}
                     <td>{{ lote.fecha_llegada.strftime('%d-%m-%Y') }}</td>
                     <td>{{ nombre_proveedor }}</td>
                     <td>{{ lote.marca_pollo if lote.marca_pollo else '-' }}</td>

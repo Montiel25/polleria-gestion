@@ -4,15 +4,14 @@
 {% block content %}
 <h2>Proveedores</h2>
 {# Verifica que tu función en app.py se llame 'registrar_proveedor' #}
-<div class="contenedor-boton-accion"> {# Quitamos el <p>, usamos un div con clase #}
-    <a href="{{ url_for('registrar_proveedor') }}" class="btn btn-secundario">Nuevo Proveedor</a></div> 
+<div class="contenedor-boton-accion"><a href="{{ url_for('registrar_proveedor') }}" class="btn btn-secundario">Nuevo Proveedor</a></div>
 
 {% if proveedores %}
     <div class="table-container"> {# <--- AÑADE ESTE DIV #}
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    {# !--<th>ID</th>--> #}
                     <th>Nombre</th>
                     <th>Contacto</th>
                     <th>Datos de Pago</th>
@@ -22,7 +21,7 @@
             <tbody>
                 {% for proveedor in proveedores %}
                 <tr>
-                    <td>{{ proveedor.id }}</td>
+                    {# !--<td>{{ proveedor.id }}</td>--> #}
                     <td>{{ proveedor.nombre }}</td>
                     <td>{{ proveedor.contacto if proveedor.contacto else '-' }}</td>
                     <td>{{ proveedor.datos_pago if proveedor.datos_pago else '-' }}</td>

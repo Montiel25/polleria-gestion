@@ -72,7 +72,7 @@ def listar_lotes():
     # Unir LotePolloVivo con Proveedor para poder ordenar por nombre de proveedor y acceder fácilmente
     lotes = db.session.query(LotePolloVivo, Proveedor.nombre.label("nombre_proveedor"))\
                       .join(Proveedor, LotePolloVivo.proveedor_id == Proveedor.id)\
-                      .order_by(LotePolloVivo.fecha_llegada.desc()).all()
+                      .order_by(LotePolloVivo.fecha_llegada.desc(), LotePolloVivo.id.desc()).all()
 
     # los lotes ahora serán tuplas (objeto_lote, nombre_proveedor)
     return render_template(

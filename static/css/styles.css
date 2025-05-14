@@ -92,7 +92,7 @@ body::-webkit-scrollbar-thumb:hover {
 /* --- Encabezado --- */
 header {
     background: var(--gris-elemento);
-    padding: var(--espacio-m) var(--espacio-l);
+    padding: var(--espacio-xs) var(--espacio-xs) 0;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -107,7 +107,7 @@ header h1 {
     font-size: 1.9em;
     font-weight: 700;
     color: var(--color-primario);
-    margin-bottom: var(--espacio-s);
+    margin-bottom: var(--espacio-xs);
     line-height: var(--line-height-titulo);
     letter-spacing: -0.5px;
 }
@@ -115,7 +115,6 @@ header h1 {
 /* --- Navegación --- */
 nav {
     background-color: var(--gris-elemento); /* Fondo consistente con header en móvil */
-    padding-bottom: var(--espacio-m); /* Espacio si los links están debajo del título */
 }
 nav ul {
     list-style: none;
@@ -181,11 +180,42 @@ main {
     border-radius: var(--radio-borde-l); /* Bordes más redondeados */
 }
 
-p {
-    padding-bottom: 0.5em; /* Añade 1 em de espacio en la parte inferior del párrafo */
-    line-height: 1em
-    letter-spacing: 0.8em;
-    }
+
+/* Estilos que ya tenías (asegúrate que no entren en conflicto o ajústalos) */
+main h2 { /* Esta regla más general podría necesitar ser más específica o ajustada */
+    font-size: 1.2em; /* Reducido de tu ejemplo general de header h1 de 1.8em/2.2em */
+    font-weight: 700;
+    color: var(--gris-texto-secundario); 
+    letter-spacing: -0.5px;
+}
+
+.contenedor-boton-accion {
+    padding: 1.5rem 0.5rem 1rem 0.5rem; 
+    align-items: center;
+    
+}
+
+main h2 {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--gris-texto-secundario);
+    letter-spacing: -0.5px;
+}
+
+/* --- Botones de Acción --- */
+.contenedor-boton-accion {
+    /*margin-bottom: var(--espacio-s); /* Esto es 1.5rem o 24px por defecto. Ajusta si necesitas más o menos */
+    /*padding: var(--espacio-s); /* Padding vertical para separar del contenido */
+}
+
+.titulo-bienvenida { /* Esta regla más general podría necesitar ser más específica o ajustada */
+    font-size: 1.2em; /* Reducido de tu ejemplo general de header h1 de 1.8em/2.2em */
+    font-weight: 700;
+    color: var(--gris-texto-principal); 
+    letter-spacing: -0.5px;
+    margin-top: var(--espacio-xs)
+}
+
 
 /* --- INICIO: SECCIÓN INTEGRADA - Detalles de Lote / Tarjetas (Card) --- */
 
@@ -350,11 +380,7 @@ footer {
     opacity: 0.5;
 }
 
-/* --- Botones de Acción --- */
-.contenedor-boton-accion {
-    /*margin-bottom: var(--espacio-s); /* Esto es 1.5rem o 24px por defecto. Ajusta si necesitas más o menos */
-    padding: var(--espacio-s); /* Padding vertical para separar del contenido */
-}
+
 
 /* --- Botones con Estilo --- */
 .btn {
