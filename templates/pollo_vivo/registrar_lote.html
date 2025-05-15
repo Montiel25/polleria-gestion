@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{{ title }}</h2>
 {# Usamos form_data que pasamos desde la ruta para rellenar si hay error #}
 {% set data = form_data if form_data else request.form %}
 <form method="POST" action="{{ url_for('registrar_lote') }}">

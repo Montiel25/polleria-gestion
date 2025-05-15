@@ -1,6 +1,7 @@
 # polleria-montiel/app.py
 
 from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_migrate import Migrate
 from config import Config
 from models import db, Proveedor, LotePolloVivo, Producto, CalculoCostosLote, DetalleCostoPiezaLote  # Importar todos los modelos
 from datetime import datetime, timezone  # Importar date aquí también
@@ -11,6 +12,9 @@ app.config.from_object(Config)
 
 # Inicializar SQLAlchemy con la app
 db.init_app(app)
+
+# Inicializar Flask-Migrate
+migrate = Migrate(app, db)
 
 
 # --- PROCESADOR DE CONTEXTO PARA EL AÑO ACTUAL ---
@@ -23,13 +27,13 @@ def inject_current_datetime(
 # --- RUTAS PRINCIPALES ---
 @app.route('/')
 def index():
-    return render_template('index.html', title="Inicio - Pollería Montiel")
+    return render_template('index.html', title="Inicio")
 
 
 # --- RUTAS PARA PROVEEDORES ---
 @app.route('/proveedores')
 def listar_proveedores():
-    proveedores = Proveedor.query.order_by(Proveedor.nombre).all()
+    proveedores = Proveedor.query.filter_by(activo=True).order_by(Proveedor.nombre).all()
     return render_template('pollo_vivo/listar_proveedores.html',
                            proveedores=proveedores,
                            title="Proveedores")
@@ -56,7 +60,7 @@ def registrar_proveedor():
                 db.session.add(nuevo_proveedor)
                 try:
                     db.session.commit()
-                    flash('Proveedor registrado exitosamente!', 'success')
+                    flash(f'Proveedor "{nuevo_proveedor.nombre}" se registró exitosamente!', 'success')
                     return redirect(url_for('listar_proveedores'))
                 except Exception as e:
                     db.session.rollback()
@@ -65,33 +69,49 @@ def registrar_proveedor():
     return render_template('pollo_vivo/registrar_proveedor.html',
                            title="Registrar Proveedor")
 
+# --- RUTA PARA LISTAR PROVEEDORES ARCHIVADOS (INACTIVOS) ---
+@app.route('/proveedores/archivados')
+def listar_proveedores_archivados():
+    proveedores_archivados = Proveedor.query.filter_by(activo=False).order_by(Proveedor.nombre).all()
+    return render_template('pollo_vivo/listar_proveedores_archivados.html',
+                           proveedores=proveedores_archivados,
+                           title="Proveedores Eliminados")
 
-# --- RUTA PARA ELIMINAR UN PROVEEDOR ---
-@app.route('/proveedores/eliminar/<int:proveedor_id>', methods=['POST'])
-def eliminar_proveedor(proveedor_id):
-    proveedor_a_eliminar = Proveedor.query.get_or_404(proveedor_id)
-
-    # Validación adicional (opcional pero recomendada):
-    # Verificar si el proveedor tiene lotes asociados antes de eliminar.
-    if proveedor_a_eliminar.lotes:  # Si la lista lote_pollo_vivo no está vacía
-        flash(
-            f'No se puede eliminar el proveedor "{proveedor_a_eliminar.nombre}" porque tiene lotes de pollo vivo asociados. Primero elimina o reasigna esos lotes.',
-            'danger')
-        return redirect(url_for('listar_proveedores'))
-
+# --- NUEVA RUTA PARA ELIMINAR LÓGICAMENTE UN PROVEEDOR ---
+@app.route('/proveedores/<int:proveedor_id>/desactivar', methods=['POST'])
+def desactivar_proveedor(proveedor_id):
+    proveedor = Proveedor.query.get_or_404(proveedor_id)
+    
+    # Aquí podrías añadir lógica de negocio, por ejemplo:
+    # ¿Se pueden desactivar proveedores con lotes activos?
+    # Por ahora, simplemente lo desactivamos.
+    
+    proveedor.activo = False
     try:
-        nombre_proveedor_eliminado = proveedor_a_eliminar.nombre  # Guardar nombre para el mensaje flash
-        db.session.delete(proveedor_a_eliminar)
         db.session.commit()
-        flash(
-            f'Proveedor "{nombre_proveedor_eliminado}" eliminado exitosamente.',
-            'success')
+        flash(f'El proveedor "{proveedor.nombre}" ha sido eliminado.', 'success')
     except Exception as e:
         db.session.rollback()
-        flash(f'Error al eliminar el proveedor: {str(e)}', 'danger')
-
+        flash(f'Error al desactivar el proveedor: {str(e)}', 'danger')
+        
     return redirect(url_for('listar_proveedores'))
 
+# --- NUEVA RUTA PARA REACTIVAR UN PROVEEDOR ---
+@app.route('/proveedores/<int:proveedor_id>/reactivar', methods=['POST'])
+def reactivar_proveedor(proveedor_id):
+    proveedor = Proveedor.query.get_or_404(proveedor_id)
+    
+    proveedor.activo = True # Cambiamos el estado a activo
+    try:
+        db.session.commit()
+        flash(f'El proveedor "{proveedor.nombre}" ha sido reactivado exitosamente.', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Error al reactivar el proveedor: {str(e)}', 'danger')
+        
+    # Redirige de vuelta a la lista de archivados para que el usuario vea que ya no está ahí,
+    # o a la lista de activos si se prefiere.
+    return redirect(url_for('listar_proveedores_archivados')) 
 
 # --- RUTAS PARA LOTES DE POLLO VIVO ---
 @app.route('/lotes')
@@ -105,7 +125,7 @@ def listar_lotes():
     return render_template(
         'pollo_vivo/listar_lotes.html',
         lotes_data=lotes,  # Cambiado el nombre de la variable para claridad
-        title="Lotes de Pollo Vivo")
+        title="Cargas")
 
 
 # --- RUTA PARA VER COSTOS CALCULADOS DE UN LOTE ESPECÍFICO ---
@@ -142,8 +162,8 @@ def ver_costos_lote(lote_id):
 
 
 @app.route('/lotes/registrar', methods=['GET', 'POST'])
-def registrar_lote():
-    proveedores = Proveedor.query.order_by(
+def registrar_lote(): #aplicamos filtros a los proveedores
+    proveedores = Proveedor.query.filter_by(activo=True).order_by(
         Proveedor.nombre).all()  # Para el <select>
 
     if request.method == 'POST':
@@ -443,4 +463,4 @@ def create_tables():
 if __name__ == '__main__':
     create_tables(
     )  # Llama a esta función para asegurar que las tablas estén creadas
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='192.168.1.5', port=5000, debug=True)

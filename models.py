@@ -6,7 +6,7 @@ from datetime import datetime, date, timezone  # Asegúrate de importar date
 db = SQLAlchemy()
 
 
-# Definición de modelos para Pollo Vivo
+# Definición de modelos para Proveedor en Pollo Vivo
 class Proveedor(db.Model):
     __tablename__ = 'proveedor'  # Buena práctica definir el nombre de la tabla explícitamente
     id = db.Column(db.Integer, primary_key=True)
@@ -14,6 +14,8 @@ class Proveedor(db.Model):
     contacto = db.Column(db.String(50), nullable=True)  # Teléfono o WhatsApp
     datos_pago = db.Column(db.String(200),
                            nullable=True)  # No. cuenta/CLABE, banco
+    # --- ELIMINACIÓN LÓGICA ---
+    activo = db.Column(db.Boolean, default=True, nullable=False) 
 
     # Relación: Un proveedor puede tener muchos lotes
     lotes = db.relationship('LotePolloVivo',
@@ -21,8 +23,7 @@ class Proveedor(db.Model):
                             lazy=True)  # Cambiado backref para evitar colisión
 
     def __repr__(self):
-        return f'<Proveedor {self.id}: {self.nombre}>'
-
+        return f'<Proveedor {self.id}: {self.nombre} (Activo: {self.activo})>'
 
 # ... (Modelo Producto ajustado) ...
 class Producto(db.Model):

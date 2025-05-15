@@ -163,7 +163,7 @@ nav a:hover::before, nav a:active::before, nav a:focus-visible::before {
 nav a.active-link { /* Estilo para el enlace activo */
     padding: 14px var(--espacio-l);
     color: var(--color-primario);
-    font-size: 0.8em
+    font-size: 0.8em;
     font-weight: 600;   
 }
 nav a.active-link::before {
@@ -203,12 +203,13 @@ main h2 {
 }
 
 /* --- Botones de Acción --- */
-.contenedor-boton-accion {
+/*.contenedor-boton-accion {
     /*margin-bottom: var(--espacio-s); /* Esto es 1.5rem o 24px por defecto. Ajusta si necesitas más o menos */
     /*padding: var(--espacio-s); /* Padding vertical para separar del contenido */
-}
 
-.titulo-bienvenida { /* Esta regla más general podría necesitar ser más específica o ajustada */
+
+
+.subtitulo { /* Esta regla más general podría necesitar ser más específica o ajustada */
     font-size: 1.2em; /* Reducido de tu ejemplo general de header h1 de 1.8em/2.2em */
     font-weight: 700;
     color: var(--gris-texto-principal); 
@@ -406,6 +407,12 @@ footer {
     margin-bottom: 0;
 }
 
+/* ... tus otros estilos ... */
+.btn-sm {
+    padding: 8px 12px; /* Más pequeño que el .btn normal */
+    font-size: 0.85em;
+}
+
 .btn:hover, .btn:active, .btn:focus-visible {
     outline: none;
     transform: translateY(-2px) scale(1.01); /* Efecto de elevación y ligera expansión */
@@ -455,22 +462,34 @@ footer {
     /* Estilo para SVG o Font Icon */
 }
 
-/* ... tus otros estilos ... */
-.btn-sm {
-    padding: 8px 12px; /* Más pequeño que el .btn normal */
-    font-size: 0.85em;
-    margin-bottom: 0; /* Para que no añada margen si está dentro de una celda */
-}
-
 /* --- Tablas Elegantes --- */
 .table-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    margin-bottom: var(--espacio-xl);
+    /*margin-bottom: var(--espacio-xl);*/
     border: 1px solid var(--gris-borde);
     border-radius: var(--radio-borde-l);
     background-color: var(--gris-elemento);
     box-shadow: var(--sombra-sm);
+}
+/* Estilos para la barra de scroll de los contenedores de tabla (WebKit) */
+.table-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f8f9fa;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    border: 2px solid #f8f9fa; /* Espacio alrededor del thumb */
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background-color: #6c757d;
 }
 table {
     width: 100%;
@@ -506,14 +525,13 @@ tbody tr:hover {
 
 tbody tr.clickable-row:hover {
     background-color: var(--gris-hover-sutil); /* Mantiene la consistencia del hover de fondo */
-    cursor: pointer;
-    /* Indicador visual adicional: un borde lateral con el color primario */
-    box-shadow: inset 3px 0 0 var(--color-primario); /* Borde interno a la izquierda */
-    /* Alternativa: borde externo
-    border-left: 3px solid var(--color-primario);
-    padding-left: calc(var(--espacio-l) - 3px); /* Ajustar padding si usas border-left para que no se mueva el contenido */
-    */
-}
+    cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+    box-shadow: inset 3px 0 0 var(--color-primario); } /* Borde interno a la izquierda */
+        /* Alternativa: borde externo
+        border-left: 3px solid var(--color-primario);
+        padding-left: calc(var(--espacio-l) - 3px); /* Ajustar padding si usas border-left para que no se mueva el contenido */
+        */
+
 
 /* Y para el estado de foco, que es importante para la accesibilidad: */
 tbody tr.clickable-row:focus-visible {
@@ -579,6 +597,75 @@ tbody tr.clickable-row:focus-visible {
     font-size: 1.1em; /* Hacer el asterisco un poco más grande */
 }
 
+/* --- Estilos para Modal de Confirmación --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050; /* Asegurar que esté por encima de otros contenidos */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease-in-out, visibility 0s linear 0.25s;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.25s ease-in-out;
+}
+
+.modal-content {
+    background-color: var(--gris-elemento);
+    padding: var(--espacio-l);
+    border-radius: var(--radio-borde-l);
+    box-shadow: var(--sombra-lg);
+    width: 90%;
+    max-width: 450px; /* Ancho máximo del modal */
+    transform: scale(0.95);
+    transition: transform 0.25s ease-in-out;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-title {
+    font-size: 1.5em;
+    color: var(--color-primario);
+    margin-top: 0;
+    margin-bottom: var(--espacio-m);
+    font-weight: 600;
+}
+
+.modal-text {
+    font-size: 1em;
+    color: var(--gris-texto-principal);
+    margin-bottom: var(--espacio-xl);
+    line-height: 1.6;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end; /* Alinea botones a la derecha */
+    gap: var(--espacio-m);
+}
+
+.modal-actions .btn {
+    width: auto; /* Permitir que los botones se ajusten a su contenido */
+    min-width: 100px; /* Un ancho mínimo para estética */
+    margin-bottom: 0; /* Anular margen inferior si .btn lo tiene globalmente */
+}
+
+/* Asegúrate de que los botones dentro del modal no tengan margen derecho innecesario */
+.modal-actions .btn:last-child {
+    margin-right: 0;
+}
 
 /* --- Media Query para Escritorio (Desde 768px) --- */
 @media (min-width: 768px) {

@@ -2,10 +2,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Proveedores</h2>
-{# Verifica que tu función en app.py se llame 'registrar_proveedor' #}
-<div class="contenedor-boton-accion"><a href="{{ url_for('registrar_proveedor') }}" class="btn btn-secundario">Nuevo Proveedor</a></div>
-
+<div class="acciones-header">
+    <a href="{{ url_for('registrar_proveedor') }}" class="btn btn-secundario">Nuevo Proveedor</a>
+</div>
 {% if proveedores %}
     <div class="table-container"> {# <--- AÑADE ESTE DIV #}
         <table>
@@ -26,18 +25,22 @@
                     <td>{{ proveedor.contacto if proveedor.contacto else '-' }}</td>
                     <td>{{ proveedor.datos_pago if proveedor.datos_pago else '-' }}</td>
                     <td>
-                        {# SI DESCOMENTASTE ESTO O AÑADISTE ENLACES AQUÍ, ASEGÚRATE DE QUE LAS FUNCIONES         EXISTEN EN app.py #}        
-                        {# E        jemplo: Si no tienes una función 'editar_proveedor', esta línea daría         BuildEr        ror si está a        ctiva #        }        
-                        {# <        a href="        {{ url_for('editar_proveedor', id=proveedor.id) }}">Editar</a>         #}        
-                        <form method="POST" action="{{ url_for('eliminar_proveedor', proveedor_id=proveedor.id) }}" style="display: inline;" onsubmit="return confirm('¿Estás realmente seguro de que deseas eliminar a este proveedor? Esta acción no se puede deshacer.');">
-                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        <form method="POST" action="{{ url_for('desactivar_proveedor', proveedor_id=proveedor.id) }}" style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-primario btn-confirm-delete"
+                                    data-provider-name="{{ proveedor.nombre }}">
+                            Eliminar
+                            </button>
                         </form>
+                        {# <a href="{{ url_for('editar_proveedor', id=proveedor.id) }}" class="btn btn-secondary btn-sm">Editar</a> #}
                     </td>        
                 </tr>        
                 {% endfor         %}
             </tbody>
         </table>
-    </div> {# <--- CIERRA EL DIV #}
+    </div>
+    <div class="acciones-footer">
+            <a href="{{ url_for('listar_proveedores_archivados') }}" class="btn">Ver Archivados</a>
+        </div>
 {% else %}
 <p>No hay proveedores registrados.</p>
 {% endif %}

@@ -52,6 +52,91 @@ document.addEventListener('DOMContentLoaded', function() {
         // console.log("Elemento con ID 'lotesTabla' no encontrado en esta página.");
     }
 
+            // --- Funcionalidad para Modal de Confirmación ---
+    const confirmModal = document.getElementById('confirmActionModal');
+    const confirmModalTitle = document.getElementById('confirmModalTitle');
+    const confirmModalMessage = document.getElementById('confirmModalMessage');
+    const confirmModalButtonConfirm = document.getElementById('confirmModalButtonConfirm');
+    const confirmModalButtonCancel = document.getElementById('confirmModalButtonCancel');
+    let currentFormToSubmit = null; // Variable para guardar el formulario a enviar
+
+    function showConfirmModal(title, message, formToSubmit) {
+        if (!confirmModal) return; // Salir si el modal no está en la página
+
+        confirmModalTitle.textContent = title;
+        confirmModalMessage.innerHTML = message; // Usamos innerHTML por si quieres pasar HTML básico
+        currentFormToSubmit = formToSubmit;
+
+        confirmModal.style.display = 'flex'; // Mostrar primero para que la transición funcione
+        setTimeout(() => { // Pequeño delay para permitir que la transición CSS ocurra
+            confirmModal.classList.add('active');
+            confirmModalButtonConfirm.focus(); // Poner foco en el botón de confirmar
+        }, 10);
+
+        // Cerrar con tecla Escape
+        document.addEventListener('keydown', handleEscapeKey);
+    }
+
+    function hideConfirmModal() {
+        if (!confirmModal) return;
+
+        confirmModal.classList.remove('active');
+        // Esperar a que termine la transición antes de ocultar con display: none
+        confirmModal.addEventListener('transitionend', function handler() {
+            confirmModal.style.display = 'none';
+            confirmModal.removeEventListener('transitionend', handler); // Limpiar el listener
+        });
+        currentFormToSubmit = null;
+        document.removeEventListener('keydown', handleEscapeKey);
+    }
+
+    function handleEscapeKey(event) {
+        if (event.key === 'Escape') {
+            hideConfirmModal();
+        }
+    }
+
+    if (confirmModalButtonConfirm) {
+        confirmModalButtonConfirm.addEventListener('click', () => {
+            if (currentFormToSubmit) {
+                currentFormToSubmit.submit();
+            }
+            hideConfirmModal();
+        });
+    }
+
+    if (confirmModalButtonCancel) {
+        confirmModalButtonCancel.addEventListener('click', () => {
+            hideConfirmModal();
+        });
+    }
+
+    // Cerrar modal si se hace clic en el overlay (fuera del contenido del modal)
+    if (confirmModal) {
+        confirmModal.addEventListener('click', (event) => {
+            if (event.target === confirmModal) { // Si el clic fue directamente en el overlay
+                hideConfirmModal();
+            }
+        });
+    }
+
+    // --- FIN Funcionalidad para Modal de Confirmación ---
+
+
+    // --- Modificar botones de eliminar para usar el modal ---
+    const deleteButtons = document.querySelectorAll('.btn-confirm-delete');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevenir el envío inmediato del formulario
+            const form = this.closest('form'); // Encontrar el formulario padre
+            const providerName = this.dataset.providerName || 'este proveedor'; // Obtener nombre si está disponible
+            const message = `¿Confirmas que quieres eliminar a <strong>${providerName}</strong>? Las cargas compradas a este provedor no se eliminarán.`;
+            const title = "Confirmar Eliminación";
+            showConfirmModal(title, message, form);
+        });
+    });
+
+
     // --- Aquí puedes añadir más lógica JS para otras funcionalidades de tu sitio ---
     // Ejemplo:
     // const algunBoton = document.getElementById('miBotonEspecial');

@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Cargas</h2>
-    <div class="contenedor-boton-accion"><a href="{{ url_for('registrar_lote') }}" class="btn btn-secundario">Nuevo Lote</a></div>
+    <div class="acciones-header"><a href="{{ url_for('registrar_lote') }}" class="btn btn-secundario">Nuevo Lote</a></div>
       
 {% if lotes_data %}
     <div class="table-container"> {# <--- AÑADE ESTE DIV #}

@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{{ title }}</h2>
 <form method="POST" action="{{ url_for('registrar_proveedor') }}">
     <div class="form-group">
         <label for="nombre">Nombre del Proveedor: <span class="required">*</span></label>
