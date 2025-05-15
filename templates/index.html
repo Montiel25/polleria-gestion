@@ -1,6 +1,12 @@
+{# Asumiendo que tienes una plantilla como index.html o dashboard.html #}
 {% extends "base.html" %}
 
 {% block content %}
-<p><strong class="subtitulo">¡Bienvenido! </strong>Este es el panel principal para gestionar a <strong>Pollería Montiel.</strong></p>
-<p>Primero, elige una opción del menú de navegación para comenzar.</p>
+<div class="pagina-contenido">
+    <h2>{{ title if title else 'Bienvenido' }}</h2> {# Si no pasas 'title', usa un default #}
+    <p><strong class="subtitulo">¡Bienvenido! </strong>Este es el panel principal para gestionar a <strong>Pollería Montiel.</strong></p>
+    <p>Primero, elige una opción del menú de navegación para comenzar.</p>
+    
+    {# Aquí podrías añadir más contenido si es necesario, como cards de acceso rápido, etc. #}
+</div>
 {% endblock %}

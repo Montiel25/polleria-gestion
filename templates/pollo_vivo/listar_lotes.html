@@ -1,14 +1,18 @@
+{# templates/pollo_vivo/listar_lotes.html #}
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="acciones-header"><a href="{{ url_for('registrar_lote') }}" class="btn btn-secundario">Nuevo Lote</a></div>
+<div class="pagina-contenido">
+    <h2>{{ title }}</h2>
+    <div class="acciones-header">
+        <a href="{{ url_for('registrar_lote') }}" class="btn btn-secundario">Nuevo Lote</a>
+    </div>
       
-{% if lotes_data %}
-    <div class="table-container"> {# <--- AÑADE ESTE DIV #}
+    {% if lotes_data %}
+    <div class="table-container">
         <table id='lotesTabla'>
             <thead>
                 <tr>
-                    {# !--><th># Carga</th>--> #}
                     <th>Fecha</th>
                     <th>Proveedor</th>
                     <th>Marca</th>
@@ -21,14 +25,12 @@
                     <th>Transporte Prov.</th>
                     <th>Notas</th>
                     <th>Kg Procesado</th>
-                    <th>Acciones</th> {# NUEVA COLUMNA PARA ACCIONES #}
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 {% for lote, nombre_proveedor in lotes_data %}
-                {# Añadimos un data-attribute con la URL de destino #}
                 <tr data-href="{{ url_for('ver_costos_lote', lote_id=lote.id) }}" class="clickable-row">
-                    {# !--><td>{{ lote.id }}</td>--> #}
                     <td>{{ lote.fecha_llegada.strftime('%d-%m-%Y') }}</td>
                     <td>{{ nombre_proveedor }}</td>
                     <td>{{ lote.marca_pollo if lote.marca_pollo else '-' }}</td>
@@ -47,7 +49,7 @@
                             N/A
                         {% endif %}
                     </td>
-                    <td onclick="event.stopPropagation();"> {# Evitar que el click en el botón propague al TR #}
+                    <td onclick="event.stopPropagation();">
                         <form method="POST" action="{{ url_for('eliminar_lote', lote_id=lote.id) }}" style="display: inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este lote? Se eliminarán también sus cálculos de costos asociados.');">
                             <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                         </form>
@@ -56,8 +58,10 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div> {# <--- CIERRA EL DIV #}
-{% else %}
+    </div>
+    {# Puedes añadir un .acciones-footer aquí si es necesario, por ejemplo, para paginación o un botón global #}
+    {% else %}
     <p>No hay lotes de pollo vivo registrados.</p>
-{% endif %}
+    {% endif %}
+</div>
 {% endblock %}

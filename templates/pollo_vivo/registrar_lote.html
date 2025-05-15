@@ -1,57 +1,64 @@
+{# templates/pollo_vivo/registrar_lote.html #}
 {% extends "base.html" %}
 
 {% block content %}
-{# Usamos form_data que pasamos desde la ruta para rellenar si hay error #}
-{% set data = form_data if form_data else request.form %}
-<form method="POST" action="{{ url_for('registrar_lote') }}">
-    <div class="form-group">
-        <label for="fecha_llegada">Fecha de Llegada: <span class="required">*</span></label>
-        <input type="date" id="fecha_llegada" name="fecha_llegada" value="{{ data.fecha_llegada if data else '' }}" required>
-    </div>
-    <div class="form-group">
-        <label for="proveedor_id">Proveedor: <span class="required">*</span></label>
-        <select id="proveedor_id" name="proveedor_id" required>
-            <option value="">-- Seleccione un proveedor --</option>
-            {% for proveedor in proveedores %}
-            <option value="{{ proveedor.id }}" {% if data and data.proveedor_id == proveedor.id|string %}selected{% endif %}>
-                {{ proveedor.nombre }}
-            </option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="marca_pollo">Marca de Pollo:</label>
-        <input type="text" id="marca_pollo" name="marca_pollo" value="{{ data.marca_pollo if data else '' }}">
-    </div>
-    <div class="form-group">
-        <label for="cantidad">Cantidad (piezas): <span class="required">*</span></label>
-        <input type="number" id="cantidad" name="cantidad" step="1" min="0" value="{{ data.cantidad if data else '' }}" required>
-    </div>
-    <div class="form-group">
-        <label for="tamano_promedio_kg">Tamaño Promedio (kg, ej: 2.988): <span class="required">*</span></label>
-        <input type="number" id="tamano_promedio_kg" name="tamano_promedio_kg" step="0.001" min="0" value="{{ data.tamano_promedio_kg if data else '' }}" required>
-    </div>
-    <div class="form-group">
-        <label for="precio_compra_kg">Precio Compra/kg (ej: 34.50): <span class="required">*</span></label>
-        <input type="number" id="precio_compra_kg" name="precio_compra_kg" step="0.01" min="0" value="{{ data.precio_compra_kg if data else '' }}" required>
-    </div>
-    <div class="form-group">
-        <input type="checkbox" id="pagado" name="pagado" value="true" {% if data and data.pagado %}checked{% endif %}>
-        <label for="pagado">¿Carga Pagada?</label>
-    </div>
-    <div class="form-group">
-        <label for="fecha_pago">Fecha de Pago (si aplica):</label>
-        <input type="date" id="fecha_pago" name="fecha_pago" value="{{ data.fecha_pago if data else '' }}">
-    </div>
-    <div class="form-group">
-        <input type="checkbox" id="transporte_por_proveedor" name="transporte_por_proveedor" value="true" {% if (data and data.transporte_por_proveedor) or not data %}checked{% endif %}>
-        <label for="transporte_por_proveedor">¿Transporte gestionado por Proveedor?</label>
-    </div>
-    <div class="form-group">
-        <label for="observaciones">Observaciones:</label>
-        <textarea id="observaciones" name="observaciones">{{ data.observaciones if data else '' }}</textarea>
-    </div>
-    <button type="submit" class="btn btn-secundario">Guardar</button>
-    <a href="{{ url_for('listar_lotes') }}" class="btn btn-primario">Cancelar</a>
-</form>
+<div class="pagina-contenido">
+    <h2>{{ title }}</h2>
+    {# Usamos form_data que pasamos desde la ruta para rellenar si hay error #}
+    {% set data = form_data if form_data else request.form %}
+    <form method="POST" action="{{ url_for('registrar_lote') }}">
+        <div class="form-group">
+            <label for="fecha_llegada">Fecha de Llegada: <span class="required-indicator">*</span></label>
+            <input type="date" id="fecha_llegada" name="fecha_llegada" value="{{ data.fecha_llegada if data else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label for="proveedor_id">Proveedor: <span class="required-indicator">*</span></label>
+            <select id="proveedor_id" name="proveedor_id" required>
+                <option value="">-- Seleccione un proveedor --</option>
+                {% for proveedor in proveedores %}
+                <option value="{{ proveedor.id }}" {% if data and data.proveedor_id == proveedor.id|string %}selected{% endif %}>
+                    {{ proveedor.nombre }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="marca_pollo">Marca de Pollo:</label>
+            <input type="text" id="marca_pollo" name="marca_pollo" value="{{ data.marca_pollo if data else '' }}">
+        </div>
+        <div class="form-group">
+            <label for="cantidad">Cantidad (piezas): <span class="required-indicator">*</span></label>
+            <input type="number" id="cantidad" name="cantidad" step="1" min="0" value="{{ data.cantidad if data else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label for="tamano_promedio_kg">Tamaño Promedio (kg, ej: 2.988): <span class="required-indicator">*</span></label>
+            <input type="number" id="tamano_promedio_kg" name="tamano_promedio_kg" step="0.001" min="0" value="{{ data.tamano_promedio_kg if data else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label for="precio_compra_kg">Precio Compra/kg (ej: 34.50): <span class="required-indicator">*</span></label>
+            <input type="number" id="precio_compra_kg" name="precio_compra_kg" step="0.01" min="0" value="{{ data.precio_compra_kg if data else '' }}" required>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" id="pagado" name="pagado" value="true" {% if data and data.pagado %}checked{% endif %}>
+            <label for="pagado" class="checkbox-label">¿Carga Pagada?</label> {# Añadido class="checkbox-label" #}
+        </div>
+        <div class="form-group">
+            <label for="fecha_pago">Fecha de Pago (si aplica):</label>
+            <input type="date" id="fecha_pago" name="fecha_pago" value="{{ data.fecha_pago if data else '' }}">
+        </div>
+        <div class="form-group">
+            <input type="checkbox" id="transporte_por_proveedor" name="transporte_por_proveedor" value="true" {% if (data and data.transporte_por_proveedor) or not data %}checked{% endif %}>
+            <label for="transporte_por_proveedor" class="checkbox-label">¿Transporte gestionado por Proveedor?</label> {# Añadido class="checkbox-label" #}
+        </div>
+        <div class="form-group">
+            <label for="observaciones">Observaciones:</label>
+            <textarea id="observaciones" name="observaciones">{{ data.observaciones if data else '' }}</textarea>
+        </div>
+        
+        <div class="form-group acciones-form"> {# Contenedor para botones del form #}
+            <button type="submit" class="btn btn-secundario">Guardar</button>
+            <a href="{{ url_for('listar_lotes') }}" class="btn btn-outline-primario">Cancelar</a> {# Cambiado a outline para diferenciar #}
+        </div>
+    </form>
+</div>
 {% endblock %}

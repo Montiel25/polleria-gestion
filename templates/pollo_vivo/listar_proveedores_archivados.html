@@ -2,13 +2,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="pagina-contenido"> {# <--- NUEVO DIV CONTENEDOR PRINCIPAL #}
+<div class="pagina-contenido">
     <h2>{{ title }}</h2>
-
-    {# <div class="acciones-header"> #}
-        {# Aquí irían botones como "Crear Nuevo", filtros, etc. si los tuvieras #}
-        {# Ejemplo: <a href="#" class="btn btn-primary">Acción Ejemplo</a> #}
-    {# </div> #}
+    {# No hay .acciones-header en tu ejemplo original para esta vista, si lo necesitas, añádelo aquí #}
+    {# <div class="acciones-header">
+        <a href="#" class="btn btn-secundario">Alguna Acción</a>
+    </div> #}
 
     {% if proveedores %}
     <div class="table-container">
@@ -40,14 +39,14 @@
             </tbody>
         </table>
     </div>
-
     <div class="acciones-footer">
         <a href="{{ url_for('listar_proveedores') }}" class="btn btn-secondary">Volver</a>
     </div>
-
     {% else %}
     <p>No hay proveedores archivados.</p>
-    <a href="{{ url_for('listar_proveedores') }}" class="btn btn-secondary">Volver</a> {# Mover el botón aquí también si no hay proveedores #}
+    <div class="acciones-footer">
+        <a href="{{ url_for('listar_proveedores') }}" class="btn btn-secondary">Volver</a>
+    </div>
     {% endif %}
-</div> {# <--- CIERRE DEL DIV CONTENEDOR PRINCIPAL #}
+</div>
 {% endblock %}

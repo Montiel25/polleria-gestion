@@ -2,15 +2,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="acciones-header">
-    <a href="{{ url_for('registrar_proveedor') }}" class="btn btn-secundario">Nuevo Proveedor</a>
-</div>
-{% if proveedores %}
-    <div class="table-container"> {# <--- AÑADE ESTE DIV #}
+<div class="pagina-contenido">
+    <h2>{{ title }}</h2>
+    <div class="acciones-header">
+        <a href="{{ url_for('registrar_proveedor') }}" class="btn btn-secundario">Nuevo Proveedor</a>
+    </div>
+
+    {% if proveedores %}
+    <div class="table-container">
         <table>
             <thead>
                 <tr>
-                    {# !--<th>ID</th>--> #}
                     <th>Nombre</th>
                     <th>Contacto</th>
                     <th>Datos de Pago</th>
@@ -20,7 +22,6 @@
             <tbody>
                 {% for proveedor in proveedores %}
                 <tr>
-                    {# !--<td>{{ proveedor.id }}</td>--> #}
                     <td>{{ proveedor.nombre }}</td>
                     <td>{{ proveedor.contacto if proveedor.contacto else '-' }}</td>
                     <td>{{ proveedor.datos_pago if proveedor.datos_pago else '-' }}</td>
@@ -34,14 +35,18 @@
                         {# <a href="{{ url_for('editar_proveedor', id=proveedor.id) }}" class="btn btn-secondary btn-sm">Editar</a> #}
                     </td>        
                 </tr>        
-                {% endfor         %}
+                {% endfor %}
             </tbody>
         </table>
     </div>
     <div class="acciones-footer">
-            <a href="{{ url_for('listar_proveedores_archivados') }}" class="btn">Ver Archivados</a>
-        </div>
-{% else %}
-<p>No hay proveedores registrados.</p>
-{% endif %}
+        <a href="{{ url_for('listar_proveedores_archivados') }}" class="btn btn-outline-primario">Ver Archivados</a>
+    </div>
+    {% else %}
+    <p>No hay proveedores registrados.</p>
+     <div class="acciones-footer">
+        <a href="{{ url_for('listar_proveedores_archivados') }}" class="btn btn-outline-primario">Ver Archivados</a>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}
